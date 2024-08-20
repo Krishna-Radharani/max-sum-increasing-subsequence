@@ -1,0 +1,22 @@
+class Solution{
+		
+
+	public:
+	int recursion(int index,int prev,int arr[],int n,vector<vector<int>>&dp){
+	    //base case
+	    if(index==n) return 0;
+	    int prevind=prev+1;
+	    if(dp[index][prevind]!=-1) return dp[index][prevind];
+	    //not take
+	    int not_take=recursion(index+1,prev,arr,n,dp);
+	    int take= arr[index]>arr[prev] || prev==-1 ?arr[index]+recursion(index+1,index,arr,n,dp):0;
+	    return dp[index][prevind]=max(take,not_take);
+	}
+	int maxSumIS(int arr[], int n)  
+	{  
+	    // Your code goes here
+	    vector<vector<int>>dp(n,vector<int>(n+1,-1));
+	    return recursion(0,-1,arr,n,dp);
+	    
+	}  
+};
